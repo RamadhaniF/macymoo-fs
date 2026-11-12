@@ -13,7 +13,10 @@ app.use(cookieParser());
 
 app.use('/api/v1', routes);
 
-// 404
+// cek cepat: alamat root
+app.get('/', (req, res) => res.json({ name: 'macymoo-api', status: 'ok' }));
+
+// 404 (harus paling bawah, setelah semua route)
 app.use((req, res) => res.status(404).json({ error: 'Not found' }));
 
 // error handler (nanti diganti middleware/errorHandler.js sesuai kontrak API)
@@ -21,5 +24,3 @@ app.use((err, req, res, next) => {
   console.error(err);
   res.status(500).json({ error: 'Internal server error' });
 });
-
-module.exports = app; // jangan panggil app.listen() di sini
